@@ -5,6 +5,7 @@ const geoLoc = require('./utils/geocode.js')
 const weather = require('./utils/weathercode.js')
 
 const app = express()
+const port = process.env.PORT || 3000
 
 // Define paths fro express control
 const ViewPublicPath = path.join(__dirname, '../public')
@@ -99,6 +100,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Server Started.');
+app.listen(port, () => {
+    console.log('Server Started at ' + port + '.');
 })
