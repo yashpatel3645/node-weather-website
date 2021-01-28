@@ -1,3 +1,4 @@
+var os = require("os");
 request = require('request')
 
 const weather = (Latitude, Longitude, callback) => {
@@ -9,8 +10,18 @@ const weather = (Latitude, Longitude, callback) => {
         } else if (body.success === false) {
             callback('Location not found.', undefined)
         } else {
-            callback(undefined, body.current.weather_descriptions[0] + '. It is currently ' + body.current.temperature +
-                ' degree celsius and It feels like ' + body.current.feelslike + ' degree outside.')
+            callback(undefined, {
+                    descriptions: body.current.weather_descriptions[0],
+                    temperature: body.current.temperature,
+                    feelslike: body.current.feelslike,
+                    localtime: body.location.localtime,
+                    wind_speed: body.current.wind_speed,
+                    uv_index: body.current.uv_index,
+                    rain: body.current.precip
+                })
+                // 'Location: ' + body.current.weather_descriptions[0] + os.EOL + 'Temperature: ' + body.current.temperature +
+                //     'C\nFeels Like: ' + body.current.feelslike + 'C\nLocal Time: ' + body.location.localtime + '\nWind Speed: ' + body.current.wind_speed +
+                //     '\nUv Index: ' + body.current.uv_index + '\nChance of Rain: ' + (body.current.precip * 100) + '%')
         }
     })
 }

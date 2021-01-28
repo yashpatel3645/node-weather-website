@@ -54,7 +54,7 @@ app.get('/weather', (req, res) => {
                 error
             });
         }
-        weather(Latitude, Longitude, (error, forCastData) => {
+        weather(Latitude, Longitude, (error, { temperature, descriptions, feelslike, localtime, wind_speed, uv_index, rain, }) => {
 
             if (error) {
                 return res.send({
@@ -62,7 +62,14 @@ app.get('/weather', (req, res) => {
                 });
             }
             res.send({
-                forecast: forCastData,
+                // forecast: forCastData,
+                temperature,
+                descriptions,
+                feelslike,
+                localtime,
+                wind_speed,
+                uv_index,
+                rain,
                 Location,
                 address: req.query.address
             })
